@@ -1,6 +1,6 @@
 package com.myapp.calculator;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -24,9 +24,10 @@ public class Main {
             int result = cal.calculator(num1, num2, oper);
             System.out.println("결과: " + result);
             // 게터 메서드 사용
-            ArrayList<Integer> results = cal.getResults();
+            List<Integer> results = cal.getResults();
             System.out.println("현재까지의 연산 결과 : " + results);
 
+            // 3번이나 exit 외에 입력시 무한루프
             boolean isTrue = true;
             while (isTrue) {
                 System.out.print("1. 첫번째 연산 결과 삭제 2. 연산 결과 직접 수정 3. 다음 계산 (exit 입력 시엔 종료) : ");
@@ -58,6 +59,8 @@ public class Main {
                         return;
                     case "3":
                         isTrue = false;
+                        break;
+                    default:
                         break;
                 }
             }
