@@ -9,7 +9,6 @@ public enum OperatorType {
         this.oper = oper;
     }
 
-
     public static OperatorType checkOperator(char oper) {
         for (OperatorType op : OperatorType.values()) {
             if (op.oper == oper) {

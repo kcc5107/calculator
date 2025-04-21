@@ -11,9 +11,9 @@ public class Main {
         while (true) {
             System.out.print("첫 번째 숫자를 입력하세요 : ");
             // 추후 예외처리?
-            int num1 = sc.nextInt();
+            double num1 = sc.nextDouble();
             System.out.print("두 번째 숫자를 입력하세요 : ");
-            int num2 = sc.nextInt();
+            double num2 = sc.nextDouble();
             System.out.print("사칙연산 기호를 입력하세요(+,-,*,/) : ");
             char oper = sc.next().charAt(0);
             sc.nextLine();
@@ -21,10 +21,9 @@ public class Main {
             // static 메서드로 쓸때
 //            int result = Calculator.calculator(num1, num2, oper);
             // 연산 메서드 호출
-            int result = cal.calculator(num1, num2, oper);
-            System.out.println("결과: " + result);
+            double result = cal.calculate(num1, num2, oper);
             // 게터 메서드 사용
-            List<Integer> results = cal.getResults();
+            List<Double> results = cal.getResults();
             System.out.println("현재까지의 연산 결과 : " + results);
 
             // 3번이나 exit 외에 입력시 무한루프
@@ -44,7 +43,7 @@ public class Main {
                         String[] s = sc.nextLine().split(" ");
                         results.clear();
                         for (String str : s) {
-                            int a = Integer.parseInt(str);
+                            double a = Double.parseDouble(str);
                             results.add(a);
                         }
                         System.out.println("수정한 결과 : " + results);
