@@ -8,7 +8,7 @@ public class Calculator {
     private List<Double> results = new ArrayList<>();
 
     // static 메서드로 써보려했으나 results가 인스턴스 필드이기때문에 results 또한 static 필드로 바꿔줘야하는 문제가 발생
-    <T extends Number> double calculate(T num1, T num2, char oper) {
+    <T extends Number> void calculate(T num1, T num2, char oper) {
         double result = 0;
         boolean isChecked = false;
 
@@ -26,7 +26,6 @@ public class Calculator {
                     break;
                 case DIVIDE:
                     if (num2.doubleValue() == 0) {
-//                        System.out.println("나눗셈 연산에서 두 번째 숫자에 0이 입력될 수 없습니다.");
                         isChecked = true;
                         throw new ArithmeticException();
                     }
@@ -44,7 +43,6 @@ public class Calculator {
             System.out.println("결과: " + result);
             results.add(result);
         }
-        return result;
     }
 
     List<Double> getResults() {
@@ -53,26 +51,43 @@ public class Calculator {
 
     void setResultsInput(String inputStr) {
         String[] str = inputStr.split(" ");
-        results.clear();
-        for (String s : str) {
-            double num = Double.parseDouble(s);
-            results.add(num);
+        List<Double> tempList = new ArrayList<>();
+        try {
+            for (String s : str) {
+                double num = Double.parseDouble(s);
+                tempList.add(num);
+            }
+            results.clear();
+            results.addAll(tempList);
+            setResults(results);
+        } catch (NumberFormatException e) {
+            System.out.println("숫자들이 제대로 입력되지않았습니다.");
         }
-        setResults(results);
     }
 
-    public void setResults(List<Double> results) {
+    void setResults(List<Double> results) {
         this.results = results;
         System.out.println("수정한 결과 : " + results);
     }
 
-    void removeResult() {
+    void removeFirstResult() {
         if (!results.isEmpty()) {
             results.remove(0);
         }
+        System.out.println("삭제한 결과 : " + results);
     }
 
     List<Double> getGreaterResults(double number) {
         return results.stream().filter(num -> num > number).collect(Collectors.toList());
+    }
+
+    List<Double> sortedResults() {
+        return results.stream().sorted().collect(Collectors.toList());
+    }
+
+    void removeMinResult() {
+        double min = sortedResults().get(0);
+        results.remove(min);
+        System.out.println("삭제한 결과 : " + results);
     }
 }

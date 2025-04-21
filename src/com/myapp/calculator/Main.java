@@ -1,5 +1,7 @@
 package com.myapp.calculator;
 
+import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,33 +12,41 @@ public class Main {
 
         while (true) {
             System.out.print("첫 번째 숫자를 입력하세요 : ");
-            // 추후 예외처리?
-            double num1 = sc.nextDouble();
-            System.out.print("두 번째 숫자를 입력하세요 : ");
-            double num2 = sc.nextDouble();
-            System.out.print("사칙연산 기호를 입력하세요(+,-,*,/) : ");
-            char oper = sc.next().charAt(0);
-            sc.nextLine();
+            try {
+                double num1 = sc.nextDouble();
+                System.out.print("두 번째 숫자를 입력하세요 : ");
+                double num2 = sc.nextDouble();
+                System.out.print("사칙연산 기호를 입력하세요(+,-,*,/) : ");
+                char oper = sc.next().charAt(0);
+                sc.nextLine();
 
-            // static 메서드로 쓸때
+                // static 메서드로 쓸때
 //            int result = Calculator.calculator(num1, num2, oper);
-            // 연산 메서드 호출
-            double result = cal.calculate(num1, num2, oper);
+                // 연산 메서드 호출
+                cal.calculate(num1, num2, oper);
+            } catch (InputMismatchException e) {
+                System.out.println("입력이 잘못되었습니다.");
+                sc.nextLine();
+                continue;
+            }
             // 게터 메서드 사용
-            List<Double> results = cal.getResults();
-            System.out.println("현재까지의 연산 결과 : " + results);
+                List<Double> results = cal.getResults();
+                System.out.println("현재까지의 연산 결과 : " + results);
 
             // 3번이나 exit 외에 입력시 무한루프
             boolean isTrue = true;
             while (isTrue) {
-                System.out.print("1. 첫번째 연산 결과 삭제 2. 연산 결과 직접 수정 3. 다음 계산 (exit 입력 시엔 종료) \n" +
-                        "4. 입력받은 값보다 큰 연산 결과 출력 : ");
+                System.out.println("""
+                        
+                        1. 첫번째 연산 결과 삭제 2. 연산 결과 직접 수정 1. 다른 계산 2. 연산 결과에 이어서 계산\s
+                        4. 입력한 값보다 큰 연산 결과들 출력 5. 제일 작은 연산 결과 삭제\s""");
+                System.out.print("원하는 기능의 번호 입력 : ");
                 String select = sc.nextLine();
                 switch (select) {
                     case "1":
                         // 첫 번째 연산결과 삭제
-                        cal.removeResult();
-                        System.out.println("삭제한 결과 : " + results);
+                        cal.removeFirstResult();
+//                        System.out.println("삭제한 결과 : " + results);
                         break;
                     case "2":
                         System.out.print("숫자들을 띄워쓰기해서 입력해주세요 : ");
@@ -56,9 +66,19 @@ public class Main {
                         break;
                     case "4":
                         System.out.print("숫자를 입력 : ");
-                        double num3 = sc.nextDouble();
+                        try {
+                            double num3 = sc.nextDouble();
+                            System.out.println(num3 + "보다 큰 연산 결과 : " + cal.getGreaterResults(num3));
+                        } catch (InputMismatchException e) {
+                            System.out.println("숫자를 입력해주세요.");
+                        }
                         sc.nextLine();
-                        System.out.println(num3 + "보다 큰 연산 결과 : " + cal.getGreaterResults(num3));
+                        break;
+                    case "5":
+                        cal.removeMinResult();
+                        break;
+                    case "6":
+                        System.out.println("오름차순 정렬 : " + cal.sortedResults());
                         break;
                     default:
                         break;
