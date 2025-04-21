@@ -41,18 +41,12 @@ public class Main {
                     case "2":
                         System.out.print("숫자들을 띄워쓰기해서 입력해주세요 : ");
                         // 세터 메서드 사용
-                        String[] s = sc.nextLine().split(" ");
-                        results.clear();
-                        for (String str : s) {
-                            double a = Double.parseDouble(str);
-                            results.add(a);
-                        }
-                        System.out.println("수정한 결과 : " + results);
+                        String inputStr = sc.nextLine();
+                        cal.setResultsInput(inputStr);
                         // set은 수정하는데 쓰이지만 i번째 인덱스가 없을시 예외발생
 //                    for (int i=0; i<s.length; i++) {
 //                        results.set(i, Integer.parseInt(s[i]));
 //                    }
-                        cal.setResults(results);
                         break;
                     case "exit":
                         System.out.println("프로그램을 종료합니다.");
@@ -71,11 +65,5 @@ public class Main {
                 }
             }
         }
-//            System.out.print("더 계산하시겠습니까? (exit 입력 시 종료) : ");
-//            sc.nextLine();
-//            String check = sc.nextLine();
-//            if(check.equals("exit")) {
-//                return;
-//            }
     }
 }

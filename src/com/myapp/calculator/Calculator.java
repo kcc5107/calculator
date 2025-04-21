@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Calculator<D> {
+public class Calculator {
     private List<Double> results = new ArrayList<>();
 
     // static 메서드로 써보려했으나 results가 인스턴스 필드이기때문에 results 또한 static 필드로 바꿔줘야하는 문제가 발생
-    public <T extends Number> double calculate(T num1, T num2, char oper) {
+    <T extends Number> double calculate(T num1, T num2, char oper) {
         double result = 0;
         boolean isChecked = false;
 
@@ -32,10 +32,6 @@ public class Calculator<D> {
                     }
                     result = num1.doubleValue() / num2.doubleValue();
                     break;
-//                default:
-//                    System.out.println("잘못된 사칙연산 기호입니다.");
-//                    isChecked = true;
-//                    break;
             }
         } catch (IllegalArgumentException e) {
             isChecked = true;
@@ -51,22 +47,32 @@ public class Calculator<D> {
         return result;
     }
 
-    public List<Double> getResults() {
+    List<Double> getResults() {
         return results;
+    }
+
+    void setResultsInput(String inputStr) {
+        String[] str = inputStr.split(" ");
+        results.clear();
+        for (String s : str) {
+            double num = Double.parseDouble(s);
+            results.add(num);
+        }
+        setResults(results);
     }
 
     public void setResults(List<Double> results) {
         this.results = results;
+        System.out.println("수정한 결과 : " + results);
     }
 
-    public void removeResult() {
+    void removeResult() {
         if (!results.isEmpty()) {
             results.remove(0);
         }
     }
 
-    public List<Double> getGreaterResults(double number) {
+    List<Double> getGreaterResults(double number) {
         return results.stream().filter(num -> num > number).collect(Collectors.toList());
     }
-
 }

@@ -5,11 +5,11 @@ public enum OperatorType {
 
     private char oper;
 
-    private OperatorType(char oper) {
+    OperatorType(char oper) {
         this.oper = oper;
     }
 
-    public static OperatorType checkOperator(char oper) {
+    static OperatorType checkOperator(char oper) {
         for (OperatorType op : OperatorType.values()) {
             if (op.oper == oper) {
                 return op;
