@@ -2,17 +2,18 @@ package com.myapp.calculator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Calculator<D> {
     private List<Double> results = new ArrayList<>();
 
     // static 메서드로 써보려했으나 results가 인스턴스 필드이기때문에 results 또한 static 필드로 바꿔줘야하는 문제가 발생
-    public <T extends Number, S> double calculate(T num1, T num2, S oper) {
+    public <T extends Number> double calculate(T num1, T num2, char oper) {
         double result = 0;
         boolean isChecked = false;
 
         try {
-        OperatorType op = OperatorType.checkOperator((Character) oper);
+        OperatorType op = OperatorType.checkOperator(oper);
             switch (op) {
                 case ADD:
                     result = num1.doubleValue() + num2.doubleValue();
@@ -62,6 +63,10 @@ public class Calculator<D> {
         if (!results.isEmpty()) {
             results.remove(0);
         }
+    }
+
+    public List<Double> getGreaterResults(double number) {
+        return results.stream().filter(num -> num > number).collect(Collectors.toList());
     }
 
 }

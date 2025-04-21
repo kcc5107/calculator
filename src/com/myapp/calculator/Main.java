@@ -29,7 +29,8 @@ public class Main {
             // 3번이나 exit 외에 입력시 무한루프
             boolean isTrue = true;
             while (isTrue) {
-                System.out.print("1. 첫번째 연산 결과 삭제 2. 연산 결과 직접 수정 3. 다음 계산 (exit 입력 시엔 종료) : ");
+                System.out.print("1. 첫번째 연산 결과 삭제 2. 연산 결과 직접 수정 3. 다음 계산 (exit 입력 시엔 종료) \n" +
+                        "4. 입력받은 값보다 큰 연산 결과 출력 : ");
                 String select = sc.nextLine();
                 switch (select) {
                     case "1":
@@ -58,6 +59,12 @@ public class Main {
                         return;
                     case "3":
                         isTrue = false;
+                        break;
+                    case "4":
+                        System.out.print("숫자를 입력 : ");
+                        double num3 = sc.nextDouble();
+                        sc.nextLine();
+                        System.out.println(num3 + "보다 큰 연산 결과 : " + cal.getGreaterResults(num3));
                         break;
                     default:
                         break;
