@@ -1,9 +1,9 @@
-package com.myapp.calculator;
+package com.myapp.calculator.calculator;
 
 public enum OperatorType {
     ADD('+'), SUBTRACT('-'), MULTIPLY('*'), DIVIDE('/');
 
-    private char oper;
+    private final char oper;
 
     OperatorType(char oper) {
         this.oper = oper;
