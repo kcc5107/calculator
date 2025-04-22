@@ -8,7 +8,7 @@ public class Calculator {
     private List<Double> results = new ArrayList<>();
 
     // static 메서드로 써보려했으나 results가 인스턴스 필드이기때문에 results 또한 static 필드로 바꿔줘야하는 문제가 발생
-    <T extends Number> void calculate(T num1, T num2, char oper) {
+    <T extends Number> double calculate(T num1, T num2, char oper) {
         double result = 0;
         boolean isChecked = false;
 
@@ -42,8 +42,10 @@ public class Calculator {
         if (!isChecked) {
             System.out.println("결과: " + result);
             results.add(result);
+            return result;
         }
-    }
+        throw new ArithmeticException();
+    };
 
     List<Double> getResults() {
         return results;
@@ -52,6 +54,7 @@ public class Calculator {
     void setResultsInput(String inputStr) {
         String[] str = inputStr.split(" ");
         List<Double> tempList = new ArrayList<>();
+        // 문자열안에 숫자가 아닐경우 예외처리
         try {
             for (String s : str) {
                 double num = Double.parseDouble(s);

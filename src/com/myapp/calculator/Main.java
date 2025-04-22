@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         Calculator cal = new Calculator();
         Scanner sc = new Scanner(System.in);
 
@@ -23,7 +23,7 @@ public class Main {
                 // static 메서드로 쓸때
 //            int result = Calculator.calculator(num1, num2, oper);
                 // 연산 메서드 호출
-                cal.calculate(num1, num2, oper);
+                double result = cal.calculate(num1, num2, oper);
             } catch (InputMismatchException e) {
                 System.out.println("입력이 잘못되었습니다.");
                 sc.nextLine();
@@ -38,17 +38,27 @@ public class Main {
             while (isTrue) {
                 System.out.println("""
                         
-                        1. 첫번째 연산 결과 삭제 2. 연산 결과 직접 수정 1. 다른 계산 2. 연산 결과에 이어서 계산\s
-                        4. 입력한 값보다 큰 연산 결과들 출력 5. 제일 작은 연산 결과 삭제\s""");
+                        1.새 계산  2.첫번째 연산 결과 삭제  3.연산 결과 오름차순 정렬  4.제일 작은 연산 결과 삭제 \s
+                        5.연산 결과 직접수정  6.입력한 값보다 큰 연산 결과들 출력  [exit를 입력하면 종료합니다.] \s""");
                 System.out.print("원하는 기능의 번호 입력 : ");
                 String select = sc.nextLine();
                 switch (select) {
                     case "1":
-                        // 첫 번째 연산결과 삭제
-                        cal.removeFirstResult();
-//                        System.out.println("삭제한 결과 : " + results);
+                        isTrue = false;
                         break;
                     case "2":
+                        cal.removeFirstResult();
+                        break;
+                    case "exit":
+                        System.out.println("프로그램을 종료합니다.");
+                        return;
+                    case "3":
+                        System.out.println("오름차순 정렬 : " + cal.sortedResults());
+                        break;
+                    case "4":
+                        cal.removeMinResult();
+                        break;
+                    case "5":
                         System.out.print("숫자들을 띄워쓰기해서 입력해주세요 : ");
                         // 세터 메서드 사용
                         String inputStr = sc.nextLine();
@@ -58,13 +68,7 @@ public class Main {
 //                        results.set(i, Integer.parseInt(s[i]));
 //                    }
                         break;
-                    case "exit":
-                        System.out.println("프로그램을 종료합니다.");
-                        return;
-                    case "3":
-                        isTrue = false;
-                        break;
-                    case "4":
+                    case "6":
                         System.out.print("숫자를 입력 : ");
                         try {
                             double num3 = sc.nextDouble();
@@ -73,12 +77,6 @@ public class Main {
                             System.out.println("숫자를 입력해주세요.");
                         }
                         sc.nextLine();
-                        break;
-                    case "5":
-                        cal.removeMinResult();
-                        break;
-                    case "6":
-                        System.out.println("오름차순 정렬 : " + cal.sortedResults());
                         break;
                     default:
                         break;
